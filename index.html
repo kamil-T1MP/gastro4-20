@@ -432,6 +432,53 @@
         .cd-box { min-width: 65px; padding: 10px; }
         .cd-num { font-size: 1.6rem; }
     }
+    /* ---- CUM ЗАГОЛОВОК ---- */
+.cum-wrap {
+    position: relative;
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 25px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+        url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+}
+.cum-letters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+}
+.cum-letter {
+    font-family: 'Arial Black', 'Impact', sans-serif;
+    font-size: 8rem;
+    font-weight: 900;
+    background-size: cover;
+    background-position: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px #5aa9e6;
+    filter: drop-shadow(0 0 8px rgba(90,169,230,0.6));
+}
+.letter-c { background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/1200px-Flag_of_Canada.svg.png'); }
+.letter-u { background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png'); }
+.letter-m { background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1200px-Flag_of_Mexico.svg.png'); }
+.cum-caption {
+    color: var(--gold-light);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    text-shadow: 0 0 10px #000;
+}
+@media (max-width: 600px) {
+    .cum-letter { font-size: 4rem; -webkit-text-stroke: 2px #5aa9e6; }
+}
 </style>
 </head>
 <body>
