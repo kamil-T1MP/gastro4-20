@@ -321,6 +321,195 @@ GastroBar 4:20 room ---- */
         .logo-title { font-size: 2.5rem; }
         .player-card { width: 120px; }
     }
+        /* ---- МОДАЛКА ИГРОКА ---- */
+    .player-card { cursor: pointer; }
+
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.88);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow-y: auto;
+    }
+    .modal-overlay.show { display: flex; animation: fadeIn .3s; }
+
+    .modal-box {
+        background: var(--dark2);
+        border: 2px solid var(--gold);
+        border-radius: 12px;
+        max-width: 550px;
+        width: 100%;
+        padding: 35px 30px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 0 50px rgba(201,162,39,0.4);
+        animation: fadeIn .4s;
+        margin: auto;
+    }
+    .modal-box img {
+        width: 190px; height: 210px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 3px solid var(--gold);
+        margin-bottom: 15px;
+        box-shadow: 0 0 20px rgba(201,162,39,0.3);
+    }
+    .modal-box .modal-flag { font-size: 2.2rem; }
+    .modal-box h2 { color: var(--gold); font-size: 1.9rem; margin: 5px 0; letter-spacing: 1px; }
+    .modal-box .modal-role {
+        color: var(--beige);
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    /* Статистика */
+    .modal-stats {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+    .stat-item {
+        background: var(--dark);
+        border: 1px solid var(--gold);
+        border-radius: 8px;
+        padding: 12px 18px;
+        min-width: 90px;
+    }
+    .stat-num {
+        font-size: 1.8rem;
+        color: var(--gold);
+        font-weight: bold;
+        line-height: 1;
+    }
+    .stat-label {
+        font-size: 0.7rem;
+        color: var(--beige);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 5px;
+    }
+
+    /* Эпичное описание команды */
+    .modal-team {
+        background: var(--dark);
+        border-left: 4px solid var(--red);
+        border-radius: 6px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: left;
+    }
+    .modal-team .team-title {
+        color: var(--gold-light);
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+    .modal-team p {
+        color: var(--beige);
+        font-size: 0.98rem;
+        font-style: italic;
+        line-height: 1.7;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 12px; right: 18px;
+        color: var(--gold);
+        font-size: 2.2rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        line-height: 1;
+        transition: color .2s;
+    }
+    .modal-close:hover { color: #fff; }
+    <script>
+    var players = {
+        yamal: {
+            name: "Ламин Ямаль", flag: "🇪🇸", img: "yamal.jpg",
+            role: "Правый вингер · Барселона",
+            stats: [
+                { num: "17", label: "Возраст" },
+                { num: "10", label: "Номер" },
+                { num: "⚡", label: "Дриблинг" }
+            ],
+            teamTitle: "🇪🇸 ИСПАНИЯ · «La Roja»",
+            teamDesc: "Красная фурия, что играет в футбол будущего. Бесконечные короткие пасы, гипнотический контроль мяча и молодая кровь, не знающая страха. Чемпионы ЕВРО-2024, которые превращают поле в шахматную доску — и всегда ставят сопернику мат."
+        },
+        kane: {
+            name: "Харри Кейн", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", img: "kane.jpg",
+            role: "Нападающий · Бавария",
+            stats: [
+                { num: "31", label: "Возраст" },
+                { num: "9", label: "Номер" },
+                { num: "🎯", label: "Голеадор" }
+            ],
+            teamTitle: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 АНГЛИЯ · «Три льва»",
+            teamDesc: "Родина футбола, жаждущая большого трофея. Дисциплина, мощь и капитан-бомбардир во главе. Три льва рычат громче с каждым турниром — и однажды футбол по-настоящему вернётся домой. It's coming home!"
+        },
+        mbappe: {
+            name: "Килиан Мбаппе", flag: "🇫🇷", img: "mbappe.jpg",
+            role: "Нападающий · Реал Мадрид",
+            stats: [
+                { num: "27", label: "Возраст" },
+                { num: "10", label: "Номер" },
+                { num: "🚀", label: "Скорость" }
+            ],
+            teamTitle: "🇫🇷 ФРАНЦИЯ · «Les Bleus»",
+            teamDesc: "Галльский шик и убийственная скорость. Чемпионы мира 2018, чей состав — созвездие суперзвёзд. Когда петух расправляет крылья, соперникам остаётся лишь смотреть в спину улетающему вдаль синему вихрю."
+        },
+        messi: {
+            name: "Лионель Месси", flag: "🇦🇷", img: "messi.jpg",
+            role: "Атакующий полузащитник · Интер Майами",
+            stats: [
+                { num: "38", label: "Возраст" },
+                { num: "10", label: "Номер" },
+                { num: "🐐", label: "GOAT" }
+            ],
+            teamTitle: "🇦🇷 АРГЕНТИНА · «Альбиселесте»",
+            teamDesc: "Страна, где футбол — это религия, а Месси — её бог. Чемпионы мира 2022, играющие сердцем и страстью танго. За бело-голубыми стоит целый народ, а ведёт их вперёд величайший в истории. Vamos, Argentina!"
+        }
+    };
+
+    function openPlayer(key) {
+        var p = players[key];
+        document.getElementById('modal-img').src = p.img;
+        document.getElementById('modal-flag').innerHTML = p.flag;
+        document.getElementById('modal-name').innerHTML = p.name;
+        document.getElementById('modal-role').innerHTML = p.role;
+
+        // Статистика
+        var statsHTML = "";
+        p.stats.forEach(function(s) {
+            statsHTML += '<div class="stat-item"><div class="stat-num">' + s.num + '</div><div class="stat-label">' + s.label + '</div></div>';
+        });
+        document.getElementById('modal-stats').innerHTML = statsHTML;
+
+        // Команда
+        document.getElementById('modal-team-title').innerHTML = p.teamTitle;
+        document.getElementById('modal-team-desc').innerHTML = p.teamDesc;
+
+        document.getElementById('playerModal').classList.add('show');
+    }
+
+    function closePlayer(e) {
+        document.getElementById('playerModal').classList.remove('show');
+    }
+
+    // Закрытие по клавише Esc
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") closePlayer();
+    });
+</script>
         /* ---- ТАЙМЕР ---- */
     .countdown-wrap {
         margin-top: 30px;
@@ -379,8 +568,8 @@ GastroBar 4:20 room ---- */
 
 <!-- ========== ОБЛОЖКА ========== -->
 <header>
-    <div class="player-strip">
-        <div class="player-card">
+       <div class="player-strip">
+        <div class="player-card" onclick="openPlayer('yamal')">
             <img src=yamal.jpg alt="Ламин Ямаль">
             <div class="player-info">
                 <span class="flag">🇪🇸</span>
@@ -388,15 +577,15 @@ GastroBar 4:20 room ---- */
                 <div>Испания</div>
             </div>
         </div>
-        <div class="player-card">
+        <div class="player-card" onclick="openPlayer('kane')">
             <img src=kane.jpg alt="Харри Кейн">
             <div class="player-info">
-                <span class="flag">eng</span>
+                <span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
                 <div class="name">Харри Кейн</div>
                 <div>Англия</div>
             </div>
         </div>
-        <div class="player-card">
+        <div class="player-card" onclick="openPlayer('mbappe')">
             <img src=mbappe.jpg alt="Килиан Мбаппе">
             <div class="player-info">
                 <span class="flag">🇫🇷</span>
@@ -404,7 +593,7 @@ GastroBar 4:20 room ---- */
                 <div>Франция</div>
             </div>
         </div>
-        <div class="player-card">
+        <div class="player-card" onclick="openPlayer('messi')">
             <img src=messi.jpg alt="Лионель Месси">
             <div class="player-info">
                 <span class="flag">🇦🇷</span>
@@ -413,7 +602,6 @@ GastroBar 4:20 room ---- */
             </div>
         </div>
     </div>
-
     <h1 class="logo-title">GASTRO-BAR 4:20</h1>
     <p class="subtitle">Тайное убежище для истинных ценителей футбола</p>
     <span class="event-badge">Чемпионат Мира 2026</span>
@@ -612,7 +800,23 @@ GastroBar 4:20 room ]
 </footer>
 
 </div><!-- /.container -->
+<!-- ========== МОДАЛКА ИГРОКА ========== -->
+<div class="modal-overlay" id="playerModal" onclick="closePlayer(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closePlayer()">&times;</button>
+        <img id="modal-img" src="" alt="">
+        <div class="modal-flag" id="modal-flag"></div>
+        <h2 id="modal-name"></h2>
+        <div class="modal-role" id="modal-role"></div>
 
+        <div class="modal-stats" id="modal-stats"></div>
+
+        <div class="modal-team">
+            <div class="team-title" id="modal-team-title"></div>
+            <p id="modal-team-desc"></p>
+        </div>
+    </div>
+</div>
 <script>
     function showRecipes(team, btn) {
         // Скрываем оба блока рецептов
