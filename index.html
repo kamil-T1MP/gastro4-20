@@ -10,6 +10,7 @@
         --gold: #c9a227; --gold-light: #e6c34a;
         --beige: #d4c4a8; --red: #8b1a1a; --green: #1e3a2f;
         --burberry-tan: #d2b48c; --burberry-red: #a02020; --burberry-black: #1c1c1c;
+        --rus-red: #c8102e; --rus-red-dark: #8b0a1e; --rus-gold: #ffd700;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Georgia','Times New Roman',serif; background: var(--dark); color: var(--beige); line-height: 1.7; }
@@ -59,6 +60,10 @@
     .player-info { padding: 8px; font-size: 0.85rem; }
     .player-info .name { color: var(--gold-light); font-weight: bold; }
     .flag { font-size: 1.4rem; }
+    /* Надпись ENG вместо флага */
+    .eng-badge { display:inline-block; font-size:1rem; font-weight:bold; letter-spacing:2px;
+        color:#fff; background:linear-gradient(135deg,#012169,#cf081f); padding:2px 10px;
+        border-radius:4px; border:1px solid var(--gold); }
 
     .logo-title { font-size: 4rem; letter-spacing: 4px; color: var(--gold);
         text-shadow: 0 0 20px rgba(201,162,39,0.6),3px 3px 0 #000; margin-bottom: 10px; }
@@ -199,21 +204,118 @@
         url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1600&q=80');
         background-size: cover; background-position: center; }
 
-    /* ШАКИРА (fixed левый нижний угол) */
-    .shakira-fixed { position: fixed; left: 25px; bottom: 30px; z-index: 1500; text-align: center; width: 120px; }
-    .shakira-photo { position: relative; cursor: pointer; border-radius: 50%; overflow: hidden;
-        border: 3px solid var(--gold); box-shadow: 0 0 20px rgba(201,162,39,0.5); transition: .3s;
-        background: #fff; width: 100px; height: 100px; margin: 0 auto; }
-    .shakira-photo:hover { transform: scale(1.08); box-shadow: 0 0 30px var(--gold-light); }
-    .shakira-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* ===== ШАКИРА (fixed, слева по центру, полный рост) ===== */
+    .shakira-fixed { position: fixed; left: 15px; top: 50%; transform: translateY(-50%);
+        z-index: 1500; text-align: center; width: 130px; }
+    .shakira-photo { position: relative; cursor: pointer; transition: .3s; }
+    .shakira-photo:hover { transform: scale(1.05); }
+    .shakira-photo img { width: 100%; height: auto; display: block;
+        filter: drop-shadow(0 0 15px rgba(201,162,39,0.5)); }
     .shakira-play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-        width: 40px; height: 40px; background: rgba(0,0,0,0.55); border-radius: 50%;
-        display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #fff; transition: .3s; }
+        width: 46px; height: 46px; background: rgba(0,0,0,0.6); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; transition: .3s;
+        border: 2px solid var(--gold); }
     .shakira-photo:hover .shakira-play-icon { background: var(--gold); color: #000; }
     .shakira-label { color: var(--gold-light); letter-spacing: 1px; text-transform: uppercase;
-        margin-top: 8px; font-size: 0.65rem; text-shadow: 0 0 8px #000; }
-    @media (max-width: 600px) { .shakira-fixed { left: 12px; bottom: 22px; width: 80px; }
-        .shakira-photo { width: 65px; height: 65px; } .shakira-play-icon { width: 28px; height: 28px; font-size: 0.9rem; } }
+        margin-top: 8px; font-size: 0.7rem; text-shadow: 0 0 8px #000; font-weight: bold; }
+
+    /* ===== ФЕДУК (fixed, справа по центру, полный рост) ===== */
+    .feduk-fixed { position: fixed; right: 15px; top: 50%; transform: translateY(-50%);
+        z-index: 1500; text-align: center; width: 130px; }
+    .feduk-photo { position: relative; cursor: pointer; transition: .3s; }
+    .feduk-photo:hover { transform: scale(1.05); }
+    .feduk-photo img { width: 100%; height: auto; display: block;
+        filter: drop-shadow(0 0 15px rgba(200,16,46,0.6)); }
+    .feduk-play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+        width: 46px; height: 46px; background: rgba(0,0,0,0.6); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; transition: .3s;
+        border: 2px solid var(--rus-red); }
+    .feduk-photo:hover .feduk-play-icon { background: var(--rus-red); color: #fff; }
+    .feduk-label { color: #ff6b6b; letter-spacing: 1px; text-transform: uppercase;
+        margin-top: 8px; font-size: 0.7rem; text-shadow: 0 0 8px #000; font-weight: bold; }
+
+    @media (max-width: 700px) {
+        .shakira-fixed { left: 6px; width: 80px; }
+        .feduk-fixed { right: 6px; width: 80px; }
+        .shakira-play-icon,.feduk-play-icon { width: 34px; height: 34px; font-size: 1rem; }
+        .shakira-label,.feduk-label { font-size: 0.55rem; }
+    }
+
+    /* ===== РАЗДЕЛ ЧМ-2018 (красный + русский узор) ===== */
+    .wc2018-section { position: relative; background:
+        linear-gradient(rgba(90,10,20,0.92),rgba(60,5,12,0.96)),
+        url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1600&q=80');
+        background-size: cover; background-position: center;
+        border: none; border-radius: 14px; padding: 55px 45px;
+        box-shadow: 0 0 40px rgba(200,16,46,0.4); overflow: hidden; }
+    /* русский узор по краям (как бёрберри, только красно-золотой хохломской) */
+    .wc2018-section::before, .wc2018-section::after {
+        content: ""; position: absolute; left: 0; width: 100%; height: 22px;
+        background: repeating-linear-gradient(90deg,
+            var(--rus-red) 0px, var(--rus-red) 20px,
+            var(--rus-gold) 20px, var(--rus-gold) 24px,
+            #fff 24px, #fff 27px,
+            var(--rus-gold) 27px, var(--rus-gold) 31px,
+            var(--rus-red-dark) 31px, var(--rus-red-dark) 40px,
+            var(--rus-gold) 40px, var(--rus-gold) 44px,
+            #fff 44px, #fff 47px);
+        z-index: 2; }
+    .wc2018-section::before { top: 0; }
+    .wc2018-section::after { bottom: 0; transform: rotate(180deg); }
+    .wc2018-inner-border { position: absolute; top: 22px; bottom: 22px; left: 0; width: 22px;
+        background: repeating-linear-gradient(0deg,
+            var(--rus-red) 0px, var(--rus-red) 20px,
+            var(--rus-gold) 20px, var(--rus-gold) 24px,
+            #fff 24px, #fff 27px,
+            var(--rus-gold) 27px, var(--rus-gold) 31px,
+            var(--rus-red-dark) 31px, var(--rus-red-dark) 40px,
+            var(--rus-gold) 40px, var(--rus-gold)
+                                                          var(--rus-gold) 40px, var(--rus-gold) 44px,
+            #fff 44px, #fff 47px);
+        z-index: 2; }
+    .wc2018-inner-border.right { left: auto; right: 0; }
+
+    .wc2018-section h2 { color: var(--rus-gold); text-shadow: 0 0 15px rgba(255,215,0,0.5), 2px 2px 0 #000; }
+    .wc2018-section h2::after { background: var(--rus-gold); }
+    .wc2018-section .section-num { color: var(--rus-gold); }
+    .wc2018-intro { text-align: center; font-style: italic; font-size: 1.15rem; color: #f5d5d5;
+        margin-bottom: 35px; position: relative; z-index: 3; }
+
+    /* СЕТКА ПЛЕЙ-ОФФ */
+    .bracket-wrap { position: relative; z-index: 3; }
+    .bracket-round { margin-bottom: 35px; }
+    .round-title { text-align: center; color: var(--rus-gold); font-size: 1.3rem; letter-spacing: 3px;
+        text-transform: uppercase; margin-bottom: 18px; border-bottom: 2px solid var(--rus-red);
+        display: inline-block; padding-bottom: 5px; width: 100%; }
+    .round-matches { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+    .match-card { background: rgba(20,5,8,0.85); border: 2px solid var(--rus-gold); border-radius: 8px;
+        padding: 14px 18px; min-width: 210px; cursor: pointer; transition: .3s; position: relative; }
+    .match-card:hover { transform: translateY(-4px); box-shadow: 0 0 20px rgba(255,215,0,0.4); }
+    .match-teams { display: flex; justify-content: space-between; align-items: center; font-weight: bold;
+        color: #fff; font-size: 1rem; }
+    .match-teams .flag-mini { font-size: 1.2rem; margin-right: 4px; }
+    .match-vs { color: var(--rus-gold); font-size: 0.8rem; margin: 0 8px; }
+    .match-score { text-align: center; margin-top: 10px; font-size: 1.4rem; font-weight: bold;
+        color: var(--rus-gold); letter-spacing: 2px; }
+    .match-score.hidden { color: transparent; text-shadow: none; user-select: none; }
+    .match-score.hidden::before { content: "🔒 нажми"; font-size: 0.75rem; color: #f5b5b5;
+        letter-spacing: 1px; font-weight: normal; }
+    .match-goals { max-height: 0; overflow: hidden; transition: max-height .4s ease, margin-top .3s;
+        font-size: 0.85rem; color: #f5d5d5; text-align: left; font-style: italic; }
+    .match-card.revealed .match-goals { max-height: 300px; margin-top: 10px; }
+    .match-goals strong { color: var(--rus-gold); }
+
+    .final-card { border-color: var(--rus-gold); background: rgba(200,16,46,0.35);
+        box-shadow: 0 0 25px rgba(255,215,0,0.4); min-width: 260px; }
+    .final-card .round-tag { position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+        background: var(--rus-gold); color:#8b0a1e; font-size:0.7rem; font-weight:bold;
+        padding:2px 12px; border-radius:10px; letter-spacing:1px; }
+
+    @media (max-width: 600px) {
+        .wc2018-section { padding: 45px 28px; }
+        .match-card { min-width: 160px; padding: 10px 12px; }
+        .match-teams { font-size: 0.85rem; }
+    }
 </style>
 </head>
 <body>
@@ -234,7 +336,7 @@
         </div>
         <div class="player-card" onclick="openPlayer('kane')">
             <img src="kane.jpg" alt="Харри Кейн">
-            <div class="player-info"><span class="flag">🇬🇧</span><div class="name">Харри Кейн</div><div>Англия</div></div>
+            <div class="player-info"><span class="eng-badge">ENG</span><div class="name">Харри Кейн</div><div>Англия</div></div>
         </div>
         <div class="player-card" onclick="openPlayer('mbappe')">
             <img src="mbappe.jpg" alt="Килиан Мбаппе">
@@ -277,7 +379,7 @@ GastroBar 4:20 room</div>
         <p>Gastro-Bar 4:20 — это не просто бар. Это <strong>тайное убежище</strong>,
         двери которого открываются далеко не для каждого. Адреса вы не найдёте нигде —
         сюда попадают лишь избранные, знающие пароль футбольного братства.</p>
-                <p style="margin-top:15px;">Мы живём по календарю большого футбола и открываемся
+        <p style="margin-top:15px;">Мы живём по календарю большого футбола и открываемся
         только в дни настоящих сражений:</p>
         <div class="schedule">
             <div class="schedule-item"><div class="icon">🏆</div><h3>Лига Чемпионов</h3>
@@ -362,7 +464,7 @@ GastroBar 4:20 room</div>
     </div>
 </section>
 
-<!-- ===== НОВЫЙ ТАЙМЕР 15.07.2026 ===== -->
+<!-- ===== ТАЙМЕР 15.07.2026 ===== -->
 <section class="timer-section">
     <span class="section-num">— IV —</span>
     <h2>Второй полуфинал</h2>
@@ -386,7 +488,7 @@ GastroBar 4:20 room</div>
     <strong>Англия</strong> против <strong>Аргентины</strong> — паб встречает асадо.</p>
 
     <div class="versus">
-        <div class="team-side team-england"><div class="big-flag">🇬🇧</div>
+        <div class="team-side team-england"><div class="big-flag" style="font-size:1.8rem;letter-spacing:2px;">🦁 ENG</div>
             <strong>АНГЛИЯ</strong><br>«Три льва» — родина футбола</div>
         <div class="vs-symbol" onclick="openVS('ea')">VS<span class="vs-hint">встречи</span></div>
         <div class="team-side team-argentina"><div class="big-flag">🇦🇷</div>
@@ -409,7 +511,7 @@ GastroBar 4:20 room</div>
     «Рука Бога», гол века, красная Бекхэма — история, полная драмы. Выбери сторону.</p>
 
     <div class="team-buttons">
-        <button class="team-btn btn-england" onclick="showRecipes('england', this)">🇬🇧 АНГЛИЯ</button>
+        <button class="team-btn btn-england" onclick="showRecipes('england', this)">🦁 АНГЛИЯ</button>
         <button class="team-btn btn-argentina" onclick="showRecipes('argentina', this)">🇦🇷 АРГЕНТИНА</button>
     </div>
 
@@ -450,6 +552,52 @@ GastroBar 4:20 room</div>
     </div>
 </section>
 
+<!-- ===== РАЗДЕЛ ЧМ-2018 (красный + русский узор) ===== -->
+<section class="wc2018-section">
+    <div class="wc2018-inner-border"></div>
+    <div class="wc2018-inner-border right"></div>
+
+    <span class="section-num">— VII —</span>
+    <h2>🇷🇺 Чемпионат Мира 2018</h2>
+    <p class="wc2018-intro">То самое лето, когда вся страна жила футболом.
+    Плей-офф домашнего чемпионата — от 1/8 финала до великого финала.<br>
+    <strong style="color:var(--rus-gold)">Нажми на матч</strong>, чтобы увидеть счёт и голы.</p>
+
+    <div class="bracket-wrap">
+
+        <!-- 1/8 ФИНАЛА -->
+        <div class="bracket-round">
+            <div class="round-title">1/8 финала</div>
+            <div class="round-matches" id="round16"></div>
+        </div>
+
+        <!-- 1/4 ФИНАЛА -->
+        <div class="bracket-round">
+            <div class="round-title">1/4 финала</div>
+            <div class="round-matches" id="round8"></div>
+        </div>
+
+        <!-- 1/2 ФИНАЛА -->
+        <div class="bracket-round">
+            <div class="round-title">1/2 финала</div>
+            <div class="round-matches" id="round4"></div>
+        </div>
+
+        <!-- ЗА 3-Е МЕСТО -->
+        <div class="bracket-round">
+            <div class="round-title">Матч за 3-е место</div>
+            <div class="round-matches" id="round3rd"></div>
+        </div>
+
+        <!-- ФИНАЛ -->
+        <div class="bracket-round">
+            <div class="round-title">🏆 ФИНАЛ</div>
+            <div class="round-matches" id="roundFinal"></div>
+        </div>
+
+    </div>
+</section>
+
 <footer>
     <p>⚽ GASTRO-BAR 4:20 ⚽</p>
     <p style="font-size:0.9rem; color:var(--beige); margin-top:10px;">
@@ -458,7 +606,8 @@ GastroBar 4:20 room</div>
 </footer>
 
 </div><!-- /.container -->
-    <!-- ========== МОДАЛКА ИГРОКА ========== -->
+
+<!-- ========== МОДАЛКА ИГРОКА ========== -->
 <div class="modal-overlay" id="playerModal" onclick="closeModal(event,'playerModal')">
     <div class="modal-box" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal(null,'playerModal')">&times;</button>
@@ -485,10 +634,10 @@ GastroBar 4:20 room</div>
     </div>
 </div>
 
-<!-- ========== ШАКИРА (левый нижний угол) ========== -->
+<!-- ========== ШАКИРА (слева по центру) ========== -->
 <div class="shakira-fixed">
     <div class="shakira-photo" onclick="playShakira()">
-        <img src="shakira.jpg" alt="Shakira">
+        <img src="shakira.png" alt="Shakira">
         <div class="shakira-play-icon" id="shakira-icon">▶</div>
     </div>
     <div class="shakira-label">Waka Waka</div>
@@ -497,26 +646,44 @@ GastroBar 4:20 room</div>
     <source src="wakawaka.mp3" type="audio/mpeg">
 </audio>
 
+<!-- ========== ФЕДУК (справа по центру, параллельно Шакире) ========== -->
+<div class="feduk-fixed">
+    <div class="feduk-photo" onclick="playFeduk()">
+        <img src="feduk.png" alt="Feduk">
+        <div class="feduk-play-icon" id="feduk-icon">▶</div>
+    </div>
+    <div class="feduk-label">Футбольчик</div>
+</div>
+<audio id="feduk-audio" loop>
+    <source src="futbolchik.mp3" type="audio/mpeg">
+</audio>
+
 <script>
     /* ===== ДАННЫЕ ИГРОКОВ ===== */
     var players = {
         yamal: { name:"Ламин Ямаль", flag:"🇪🇸", img:"yamal.jpg", role:"Правый вингер · Барселона",
+            music:"yamal.mp3",
             stats:[{num:"19",label:"Возраст"},{num:"10",label:"Номер"},{num:"⚡",label:"Дриблинг"}],
             teamTitle:"🇪🇸 ИСПАНИЯ · «La Roja»",
             teamDesc:"Красная фурия, что играет в футбол будущего. Бесконечные короткие пасы, гипнотический контроль мяча и молодая кровь, не знающая страха. Чемпионы ЕВРО-2024, которые превращают поле в шахматную доску — и всегда ставят сопернику мат." },
-        kane: { name:"Харри Кейн", flag:"🇬🇧", img:"kane.jpg", role:"Нападающий · Бавария",
+        kane: { name:"Харри Кейн", flag:"🦁 ENG", img:"kane.jpg", role:"Нападающий · Бавария",
+            music:"kane.mp3",
             stats:[{num:"32",label:"Возраст"},{num:"9",label:"Номер"},{num:"🎯",label:"Голеадор"}],
-            teamTitle:"🏴 АНГЛИЯ · «Три льва»",
+            teamTitle:"🦁 АНГЛИЯ · «Три льва»",
             teamDesc:"Родина футбола, жаждущая большого трофея. Дисциплина, мощь и капитан-бомбардир во главе. Три льва рычат громче с каждым турниром — и однажды футбол по-настоящему вернётся домой. It's coming home!" },
         mbappe: { name:"Килиан Мбаппе", flag:"🇫🇷", img:"mbappe.jpg", role:"Нападающий · Реал Мадрид",
+            music:"mbappe.mp3",
             stats:[{num:"27",label:"Возраст"},{num:"10",label:"Номер"},{num:"🚀",label:"Скорость"}],
             teamTitle:"🇫🇷 ФРАНЦИЯ · «Les Bleus»",
             teamDesc:"Галльский шик и убийственная скорость. Чемпионы мира 2018, чей состав — созвездие суперзвёзд. Когда петух расправляет крылья, соперникам остаётся лишь смотреть в спину улетающему вдаль синему вихрю." },
         messi: { name:"Лионель Месси", flag:"🇦🇷", img:"messi.jpg", role:"Атакующий полузащитник · Интер Майами",
+            music:"messi.mp3",
             stats:[{num:"39",label:"Возраст"},{num:"10",label:"Номер"},{num:"🐐",label:"GOAT"}],
             teamTitle:"🇦🇷 АРГЕНТИНА · «Альбиселесте»",
             teamDesc:"Страна, где футбол — это религия, а Месси — её бог. Чемпионы мира 2022, играющие сердцем и страстью танго. За бело-голубыми стоит целый народ, а ведёт их вперёд величайший в истории. Vamos, Argentina!" }
     };
+
+    var currentPlayerAudio = null;
 
     function openPlayer(key) {
         var p = players[key];
@@ -530,6 +697,22 @@ GastroBar 4:20 room</div>
         document.getElementById('modal-team-title').innerHTML = p.teamTitle;
         document.getElementById('modal-team-desc').innerHTML = p.teamDesc;
         document.getElementById('playerModal').classList.add('show');
+
+        /* музыка игрока */
+        stopPlayerAudio();
+        if (p.music) {
+            currentPlayerAudio = new Audio(p.music);
+            currentPlayerAudio.loop = true;
+            currentPlayerAudio.play().catch(function(){});
+        }
+    }
+
+    function stopPlayerAudio() {
+        if (currentPlayerAudio) {
+            currentPlayerAudio.pause();
+            currentPlayerAudio.currentTime = 0;
+            currentPlayerAudio = null;
+        }
     }
 
     /* ===== ДАННЫЕ ЛИЧНЫХ ВСТРЕЧ (VS) ===== */
@@ -547,9 +730,9 @@ GastroBar 4:20 room</div>
             ]
         },
         ea: {
-            head: "🇬🇧 Англия — Аргентина 🇦🇷",
+            head: "🦁 Англия — Аргентина 🇦🇷",
             sub: "Одно из самых горячих дерби планеты",
-            score: [{num:"6",lbl:"Побед 🇬🇧"},{num:"5",lbl:"Ничьих"},{num:"7",lbl:"Побед 🇦🇷"}],
+            score: [{num:"6",lbl:"Побед ENG"},{num:"5",lbl:"Ничьих"},{num:"7",lbl:"Побед 🇦🇷"}],
             facts: [
                 {year:"ЧМ-1966, 1/4 финала", text:"Англия побеждает 1:0 на пути к своему единственному титулу. Капитана Аргентины Раттина удаляют — начало большой вражды."},
                 {year:"ЧМ-1986, 1/4 финала ✋", text:"Легендарный матч. Марадона забивает «Рукой Бога», а через 4 минуты — «Гол века», обыграв полкоманды. Аргентина 2:1 и станет чемпионом."},
@@ -573,30 +756,27 @@ GastroBar 4:20 room</div>
         document.getElementById('vsModal').classList.add('show');
     }
 
-        function closeModal(e, id) {
+    function closeModal(e, id) {
         document.getElementById(id).classList.remove('show');
+        if (id === 'playerModal') stopPlayerAudio();
     }
 
     document.addEventListener('keydown', function(e) {
         if (e.key === "Escape") {
             document.getElementById('playerModal').classList.remove('show');
             document.getElementById('vsModal').classList.remove('show');
+            stopPlayerAudio();
         }
     });
 
-    /* ===== РАСКРЫТИЕ РЕЦЕПТОВ (по клику) ===== */
-    function toggleRecipe(card) {
-        card.classList.toggle('open');
-    }
+    /* ===== РАСКРЫТИЕ РЕЦЕПТОВ ===== */
+    function toggleRecipe(card) { card.classList.toggle('open'); }
 
     /* ===== ПЕРЕКЛЮЧЕНИЕ КОМАНД (рецепты) ===== */
     function showRecipes(team, btn) {
         var group = (team === 'spain' || team === 'france') ? ['spain','france'] : ['england','argentina'];
         group.forEach(function(t){ document.getElementById('recipes-'+t).classList.remove('show'); });
-
-        // снять active только с кнопок этой пары
         btn.parentElement.querySelectorAll('.team-btn').forEach(function(b){ b.classList.remove('active'); });
-
         document.getElementById('recipes-'+team).classList.add('show');
         btn.classList.add('active');
         setTimeout(function(){
@@ -609,15 +789,83 @@ GastroBar 4:20 room</div>
         var audio = document.getElementById('shakira-audio');
         var icon = document.getElementById('shakira-icon');
         if (audio.paused) {
-            audio.play();
-            icon.innerHTML = "⏸";
-        } else {
-            audio.pause();
-            icon.innerHTML = "▶";
-        }
+            document.getElementById('feduk-audio').pause();
+            document.getElementById('feduk-icon').innerHTML = "▶";
+            audio.play(); icon.innerHTML = "⏸";
+        } else { audio.pause(); icon.innerHTML = "▶"; }
     }
 
-    /* ===== ТАЙМЕР 1: Испания — Франция (14.07.2026) ===== */
+    /* ===== ФЕДУК — Футбольчик ===== */
+    function playFeduk() {
+        var audio = document.getElementById('feduk-audio');
+        var icon = document.getElementById('feduk-icon');
+        if (audio.paused) {
+            document.getElementById('shakira-audio').pause();
+            document.getElementById('shakira-icon').innerHTML = "▶";
+            audio.play(); icon.innerHTML = "⏸";
+        } else { audio.pause(); icon.innerHTML = "▶"; }
+    }
+
+    /* ===== СЕТКА ЧМ-2018 ===== */
+    var wc2018 = {
+        round16: [
+            {t1:"🇫🇷 Франция",t2:"🇦🇷 Аргентина",score:"4 : 3",goals:"<strong>Франция:</strong> Гризманн (пен), Павар, Мбаппе ×2<br><strong>Аргентина:</strong> Ди Мария, Мерседес, Агуэро"},
+            {t1:"🇺🇾 Уругвай",t2:"🇵🇹 Португалия",score:"2 : 1",goals:"<strong>Уругвай:</strong> Кавани ×2<br><strong>Португалия:</strong> Пепе"},
+            {t1:"🇷🇺 Россия",t2:"🇪🇸 Испания",score:"1 : 1 (4:3 пен)",goals:"<strong>Россия:</strong> Дзюба (пен) · Акинфеев — герой серии!<br><strong>Испания:</strong> автогол Игнашевича"},
+            {t1:"🇭🇷 Хорватия",t2:"🇩🇰 Дания",score:"1 : 1 (3:2 пен)",goals:"<strong>Хорватия:</strong> Манджукич · Субашич тащит пенальти<br><strong>Дания:</strong> Йоргенсен"},
+            {t1:"🇧🇷 Бразилия",t2:"🇲🇽 Мексика",score:"2 : 0",goals:"<strong>Бразилия:</strong> Неймар, Фирмино"},
+            {t1:"🇧🇪 Бельгия",t2:"🇯🇵 Япония",score:"3 : 2",goals:"<strong>Бельгия:</strong> Вертонген, Феллаини, Шадли<br><strong>Япония:</strong> Хараguchi, Инуи"},
+            {t1:"🇸🇪 Швеция",t2:"🇨🇭 Швейцария",score:"1 : 0",goals:"<strong>Швеция:</strong> Форсберг"},
+            {t1:"🏴 Англия",t2:"🇨🇴 Колумбия",score:"1 : 1 (4:3 пен)",goals:"<strong>Англия:</strong> Кейн (пен)<br><strong>Колумбия:</strong> Миной"}
+        ],
+        round8: [
+            {t1:"🇫🇷 Франция",t2:"🇺🇾 Уругвай",score:"2 : 0",goals:"<strong>Франция:</strong> Варан, Гризманн"},
+            {t1:"🇷🇺 Россия",t2:"🇭🇷 Хорватия",score:"2 : 2 (3:4 пен)",goals:"<strong>Россия:</strong> Черышев, Фернандес<br><strong>Хорватия:</strong> Крамарич, Виде · победа в серии"},
+            {t1:"🇧🇷 Бразилия",t2:"🇧🇪 Бельгия",score:"1 : 2",goals:"<strong>Бразилия:</strong> Ренату Аугусту<br><strong>Бельгия:</strong> автогол Фернандиньо, Де Брёйне"},
+            {t1:"🇸🇪 Швеция",t2:"🏴 Англия",score:"0 : 2",goals:"<strong>Англия:</strong> Магуайр, Алли"}
+        ],
+        round4: [
+            {t1:"🇫🇷 Франция",t2:"🇧🇪 Бельгия",score:"1 : 0",goals:"<strong>Франция:</strong> Умтити (гол головой)"},
+            {t1:"🇭🇷 Хорватия",t2:"🏴 Англия",score:"2 : 1",goals:"<strong>Хорватия:</strong> Перишич, Манджукич (в доп. время)<br><strong>Англия:</strong> Трипьер"}
+        ],
+        round3rd: [
+            {t1:"🇧🇪 Бельгия",t2:"🏴 Англия",score:"2 : 0",goals:"<strong>Бельгия:</strong> Мёнье, Азар"}
+        ],
+        roundFinal: [
+            {t1:"🇫🇷 Франция",t2:"🇭🇷 Хорватия",score:"4 : 2",goals:"<strong>Франция:</strong> Манджукич (аг), Гризманн (пен), Погба, Мбаппе<br><strong>Хорватия:</strong> Перишич, Манджукич<br><strong>🏆 Франция — чемпион мира 2018!</strong>",final:true}
+        ]
+    };
+
+    function buildBracket(containerId, matches) {
+        var box = document.getElementById(containerId);
+        var html = "";
+        matches.forEach(function(m, i) {
+            var isFinal = m.final ? " final-card" : "";
+            var tag = m.final ? '<div class="round-tag">🏆 ФИНАЛ</div>' : '';
+            html += '<div class="match-card'+isFinal+'" onclick="revealMatch(this)">'
+                + tag
+                + '<div class="match-teams"><span>'+m.t1+'</span><span class="match-vs">—</span><span>'+m.t2+'</span></div>'
+                + '<div class="match-score hidden">'+m.score+'</div>'
+                + '<div class="match-goals">'+m.goals+'</div>'
+                + '</div>';
+        });
+        box.innerHTML = html;
+    }
+
+    function revealMatch(card) {
+        card.classList.toggle('revealed');
+        var score = card.querySelector('.match-score');
+        if (card.classList.contains('revealed')) score.classList.remove('hidden');
+        else score.classList.add('hidden');
+    }
+
+    buildBracket('round16', wc2018.round16);
+    buildBracket('round8', wc2018.round8);
+    buildBracket('round4', wc2018.round4);
+    buildBracket('round3rd', wc2018.round3rd);
+    buildBracket('roundFinal', wc2018.roundFinal);
+
+        /* ===== ТАЙМЕР 1: Испания — Франция (14.07.2026) ===== */
     var matchDate = new Date("2026-07-14T22:00:00+03:00").getTime();
     var timer = setInterval(function() {
         var diff = matchDate - new Date().getTime();
@@ -652,5 +900,6 @@ GastroBar 4:20 room</div>
     /* Хелпер: добавить 0 к числам меньше 10 */
     function pad(n) { return n < 10 ? "0" + n : n; }
 </script>
+
 </body>
 </html>
