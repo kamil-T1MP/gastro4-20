@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gastro-Bar 4:20 — ЧМ 2026</title>
+<style>
+    :root {
+        --dark: #0d0d0d;
+        --dark2: #1a1a1a;
+        --gold: #c9a227;
+        --gold-light: #e6c34a;
+        --beige: #d4c4a8;
+        --red: #8b1a1a;
+        --green: #1e3a2f;
+        --burberry-tan: #d2b48c;
+        --burberry-red: #a02020;
+        --burberry-black: #1c1c1c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+        background: var(--dark);
+        color: var(--beige);
+        line-height: 1.7;
+    }
+
+    /* ---- ОРНАМЕНТ BURBERRY ПО КРАЯМ ---- */
+    .burberry-border {
+        position: fixed;
+        background:
+            repeating-linear-gradient(90deg,
+                var(--burberry-tan) 0px, var(--burberry-tan) 30px,
+                var(--burberry-black) 30px, var(--burberry-black) 34px,
+                var(--burberry-tan) 34px, var(--burberry-tan) 42px,
+                var(--burberry-red) 42px, var(--burberry-red) 46px,
+                var(--burberry-tan) 46px, var(--burberry-tan) 54px,
+                #ffffff 54px, #ffffff 56px,
+                var(--burberry-tan) 56px, var(--burberry-tan) 64px,
+                var(--burberry-black) 64px, var(--burberry-black) 68px);
+        z-index: 1000;
+    }
+    .bb-top, .bb-bottom { left: 0; width: 100%; height: 18px; }
+    .bb-top { top: 0; }
+    .bb-bottom { bottom: 0; }
+    .bb-left, .bb-right {
+        top: 0; height: 100%; width: 18px;
+        background:
+            repeating-linear-gradient(0deg,
+                var(--burberry-tan) 0px, var(--burberry-tan) 30px,
+                var(--burberry-black) 30px, var(--burberry-black) 34px,
+                var(--burberry-tan) 34px, var(--burberry-tan) 42px,
+                var(--burberry-red) 42px, var(--burberry-red) 46px,
+                var(--burberry-tan) 46px, var(--burberry-tan) 54px,
+                #ffffff 54px, #ffffff 56px,
+                var(--burberry-tan) 56px, var(--burberry-tan) 64px,
+                var(--burberry-black) 64px, var(--burberry-black) 68px);
+    }
+    .bb-left { left: 0; }
+    .bb-right { right: 0; }
+
+    .container { padding: 18px; }
+
+    /* ---- ОБЛОЖКА ---- */
+    header {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background:
+            linear-gradient(rgba(5,5,5,0.75), rgba(5,5,5,0.9)),
+            url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1600&q=80');
+        background-size: cover;
+        background-position: center;
+        border-bottom: 3px solid var(--gold);
+    }
+
+    .player-strip {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    .player-card {
+        width: 150px;
+        background: var(--dark2);
+        border: 2px solid var(--gold);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(201,162,39,0.3);
+        transition: transform .3s;
+    }
+    .player-card:hover { transform: translateY(-8px) scale(1.03); }
+    .player-card img { width: 100%; height: 170px; object-fit: cover; display:block; }
+    .player-info {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+    .player-info .name { color: var(--gold-light); font-weight: bold; }
+    .flag { font-size: 1.4rem; }
+
+    .logo-title {
+        font-size: 4rem;
+        letter-spacing: 4px;
+        color: var(--gold);
+        text-shadow: 0 0 20px rgba(201,162,39,0.6), 3px 3px 0 #000;
+        margin-bottom: 10px;
+    }
+    .subtitle {
+        font-size: 1.5rem;
+        color: var(--beige);
+        font-style: italic;
+        letter-spacing: 2px;
+    }
+    .event-badge {
+        margin-top: 20px;
+        display: inline-block;
+        padding: 10px 30px;
+        border: 2px solid var(--gold);
+        background: rgba(0,0,0,0.5);
+        color: var(--gold-light);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    /* ---- ПРИГЛАШЕНИЕ Здравствуйте, приглашаем вас на просмотр матча Франция - Испания. 
+
+В качестве основного блюда: говяжьи щечки по испанским (Carrilleras) в красном вине.
+
+Барная карта состоит из красного сухого испанского вина и Мартини тоника. 
+
+GastroBar 4:20 room ---- */
+    .invitation {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background: var(--dark2);
+        border: 2px solid var(--gold);
+        border-radius: 8px;
+        text-align: center;
+        position: relative;
+    }
+    .invitation::before {
+        content: "⚽";
+        position: absolute;
+        top: -22px; left: 50%;
+        transform: translateX(-50%);
+        background: var(--dark);
+        padding: 0 15px;
+        font-size: 2rem;
+    }
+    .invitation h2 {
+        color: var(--gold);
+        font-size: 2rem;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+    }
+    /* >>> ЗДЕСЬ ТЫ ПИШЕШЬ ТЕКСТ ПРИГЛАШЕНИЯ <<< */
+    .invitation-text {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: var(--beige);
+        min-height: 100px;
+    }
+
+    /* ---- СЕКЦИИ ---- */
+    section {
+        max-width: 1000px;
+        margin: 60px auto;
+        padding: 40px;
+        background: var(--dark2);
+        border-radius: 10px;
+        border-top: 4px solid var(--gold);
+        box-shadow: 0 5px 30px rgba(0,0,0,0.6);
+    }
+    section h2 {
+        text-align: center;
+        color: var(--gold);
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+        position: relative;
+    }
+    section h2::after {
+        content: "";
+        display: block;
+        width: 100px; height: 2px;
+        background: var(--gold);
+        margin: 15px auto 0;
+    }
+    .section-num {
+        display: block;
+        text-align: center;
+        color: var(--red);
+        font-size: 1rem;
+        letter-spacing: 4px;
+        margin-bottom: 5px;
+    }
+
+    /* Секция 1 */
+    .secret-box {
+        text-align: center;
+        font-size: 1.15rem;
+    }
+    .schedule {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+    .schedule-item {
+        flex: 1 1 250px;
+        background: var(--dark);
+        padding: 20px;
+        border: 1px solid var(--gold);
+        border-radius: 6px;
+    }
+    .schedule-item .icon { font-size: 2rem; }
+    .schedule-item h3 { color: var(--gold-light); margin: 10px 0; }
+
+    /* Секция 2 — противостояние */
+    .versus {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    .team-side {
+        flex: 1 1 200px;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .team-spain { background: linear-gradient(135deg, #aa151b, #f1bf00); color:#000;}
+    .team-france { background: linear-gradient(135deg, #0055a4, #ffffff, #ef4135); color:#000;}
+    .team-side .big-flag { font-size: 3rem; }
+    .vs-symbol {
+        font-size: 3rem;
+        color: var(--gold);
+        font-weight: bold;
+        text-shadow: 2px 2px 0 #000;
+    }
+    .dish {
+        background: var(--dark);
+        padding: 25px;
+        border-left: 4px solid var(--red);
+        border-radius: 6px;
+        margin-top: 20px;
+    }
+    .dish h3 { color: var(--gold-light); font-size: 1.4rem; }
+
+    /* Секция 3 */
+    .team-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin: 30px 0;
+    }
+    .team-btn {
+        padding: 18px 50px;
+        font-size: 1.3rem;
+        font-family: 'Georgia', serif;
+        font-weight: bold;
+        letter-spacing: 2px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform .2s, box-shadow .2s;
+        color: #fff;
+    }
+    .team-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(201,162,39,0.5); }
+    .btn-spain { background: linear-gradient(135deg, #aa151b, #c9a227); }
+    .btn-france { background: linear-gradient(135deg, #0055a4, #ef4135); }
+    .team-btn.active { outline: 3px solid var(--gold); }
+
+    .history-text {
+        text-align: center;
+        font-style: italic;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .recipes { display: none; }
+    .recipes.show { display: block; animation: fadeIn .5s; }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1;} }
+
+    .recipe-card {
+        background: var(--dark);
+        margin: 15px 0;
+        padding: 20px;
+        border-radius: 6px;
+        border-left: 4px solid var(--gold);
+    }
+    .recipe-card h4 { color: var(--gold-light); font-size: 1.3rem; margin-bottom: 8px;}
+    .recipe-card .recipe-detail { font-size: 0.95rem; color: var(--beige); }
+    .recipe-card .recipe-detail strong { color: var(--gold); }
+
+    .themed-spain { border-top: 5px solid #aa151b !important; }
+    .themed-france { border-top: 5px solid #0055a4 !important; }
+
+    footer {
+        text-align: center;
+        padding: 40px 20px 60px;
+        color: var(--gold);
+        border-top: 3px solid var(--gold);
+        margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+        .logo-title { font-size: 2.5rem; }
+        .player-card { width: 120px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Орнамент Burberry -->
+<div class="burberry-border bb-top"></div>
+<div class="burberry-border bb-bottom"></div>
+<div class="burberry-border bb-left"></div>
+<div class="burberry-border bb-right"></div>
+
+<div class="container">
+
+<!-- ========== ОБЛОЖКА ========== -->
+<header>
+    <div class="player-strip">
+        <div class="player-card">
+            <img src=yamal.jpg alt="Ламин Ямаль">
+            <div class="player-info">
+                <span class="flag">🇪🇸</span>
+                <div class="name">Ламин Ямаль</div>
+                <div>Испания</div>
+            </div>
+        </div>
+        <div class="player-card">
+            <img src=kane.jpg alt="Харри Кейн">
+            <div class="player-info">
+                <span class="flag">🇬🇧</span>
+                <div class="name">Харри Кейн</div>
+                <div>Англия</div>
+            </div>
+        </div>
+        <div class="player-card">
+            <img src=mbappe.jpg alt="Килиан Мбаппе">
+            <div class="player-info">
+                <span class="flag">🇫🇷</span>
+                <div class="name">Килиан Мбаппе</div>
+                <div>Франция</div>
+            </div>
+        </div>
+        <div class="player-card">
+            <img src=messi.jpg alt="Лионель Месси">
+            <div class="player-info">
+                <span class="flag">🇦🇷</span>
+                <div class="name">Лионель Месси</div>
+                <div>Аргентина</div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="logo-title">GASTRO-BAR 4:20</h1>
+    <p class="subtitle">Тайное убежище для истинных ценителей футбола</p>
+    <span class="event-badge">Чемпионат Мира 2026</span>
+</header>
+
+<!-- ========== ПРИГЛАШЕНИЕ ========== -->
+<div class="invitation">
+    <h2>Приглашение</h2>
+    <!-- >>>>>> НАПИШИ СВОЙ ТЕКСТ ПРИГЛАШЕНИЯ ЗДЕСЬ <<<<<< -->
+    <div class="invitation-text">
+        [ Здравствуйте, приглашаем вас на просмотр матча Франция - Испания. 
+
+В качестве основного блюда: говяжьи щечки по испанским (Carrilleras) в красном вине.
+
+Барная карта состоит из красного сухого испанского вина и Мартини тоника. 
+
+GastroBar 4:20 room ]
+    </div>
+</div>
+
+<!-- ========== СЕКЦИЯ 1: ТАЙНОЕ МЕСТО ========== -->
+<section>
+    <span class="section-num">— I —</span>
+    <h2>Тайное место</h2>
+    <div class="secret-box">
+        <p>Gastro-Bar 4:20 — это не просто бар. Это <strong>тайное убежище</strong>,
+        двери которого открываются далеко не для каждого. Адреса вы не найдёте нигде —
+        сюда попадают лишь избранные, знающие пароль футбольного братства.</p>
+        <p style="margin-top:15px;">Мы живём по календарю большого футбола и открываемся
+        только в дни настоящих сражений:</p>
+
+        <div class="schedule">
+            <div class="schedule-item">
+                <div class="icon">🏆</div>
+                <h3>Лига Чемпионов</h3>
+                <p>Каждую весну — с 1/8 финала и до самого финала.</p>
+            </div>
+            <div class="schedule-item">
+                <div class="icon">🌍</div>
+                <h3>Чемпионат Мира</h3>
+                <p>Раз в 4 года — с 1/4 финала до финала.</p>
+            </div>
+            <div class="schedule-item">
+                <div class="icon">🇪🇺</div>
+                <h3>ЕВРО</h3>
+                <p>Раз в 4 года — до последнего свистка финала.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== СЕКЦИЯ 2: КУХНЯ И ПРОТИВОСТОЯНИЕ ========== -->
+<section>
+    <span class="section-num">— II —</span>
+    <h2>Гастрономическая дуэль</h2>
+
+    <p class="history-text">14 июля 2026. Полуфинал. Коррида встречается с петухом —
+    <strong>Испания</strong> против <strong>Франции</strong>. А на кухне — своё El Clásico.</p>
+
+    <div class="versus">
+        <div class="team-side team-spain">
+            <div class="big-flag">🇪🇸</div>
+            <strong>ИСПАНИЯ</strong><br>
+            «La Roja» — страсть корриды
+        </div>
+        <div class="vs-symbol">VS</div>
+        <div class="team-side team-france">
+            <div class="big-flag">🇫🇷</div>
+            <strong>ФРАНЦИЯ</strong><br>
+            «Les Bleus» — галльский шик
+        </div>
+    </div>
+
+    <div class="dish">
+        <h3>🥩 Главное блюдо вечера</h3>
+        <p><strong>Говяжьи щёчки по-испански (Carrilleras) в красном вине</strong></p>
+        <p style="margin-top:10px;">Испанский темперамент, томлённый до нежности во французском
+        красном вине. Мясо, что тает во рту быстрее, чем оборона рушится на исходе овертайма.
+        Подаётся под аккомпанемент криков болельщиков и звона бокалов.</p>
+    </div>
+</section>
+
+<!-- ========== СЕКЦИЯ 3: ИСТОРИЯ И РЕЦЕПТЫ ========== -->
+<section id="section3">
+    <span class="section-num">— III —</span>
+    <h2>История противостояний</h2>
+
+    <p class="history-text">Испания и Франция — соседи и вечные соперники. От легендарного
+    ЕВРО-1984, где французы взяли титул, до ЕВРО-2024, где Испания взяла реванш в полуфинале.
+    Две великие футбольные и гастрономические культуры. Выбери сторону — и узнай её вкус.</p>
+
+    <div class="team-buttons">
+        <button class="team-btn btn-spain" onclick="showRecipes('spain', this)">🇪🇸 ИСПАНИЯ</button>
+        <button class="team-btn btn-france" onclick="showRecipes('france', this)">🇫🇷 ФРАНЦИЯ</button>
+    </div>
+
+    <!-- РЕЦЕПТЫ ИСПАНИИ -->
+    <div class="recipes themed-spain" id="recipes-spain">
+        <div class="recipe-card">
+            <h4>1. Паэлья Валенсиана</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> рис бомба, курица, кролик, зелёная фасоль, шафран, оливковое масло, помидоры, чеснок.<br>
+                <strong>Рецепт:</strong> Обжарить мясо на большой сковороде, добавить овощи и томаты. Всыпать рис, залить бульоном с шафраном. Готовить не мешая ~18 мин до образования корочки «сокаррат».
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>2. Гаспачо</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> спелые помидоры, огурец, перец, чеснок, хлеб, оливковое масло, хересный уксус.<br>
+                <strong>Рецепт:</strong> Все овощи и размоченный хлеб взбить в блендере с маслом и уксусом. Охладить минимум 2 часа. Подавать холодным.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>3. Тортилья Эспаньола</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> картофель, яйца, лук, оливковое масло, соль.<br>
+                <strong>Рецепт:</strong> Картофель с луком томить в масле до мягкости. Смешать с взбитыми яйцами, обжарить омлет с двух сторон до золотистости.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>4. Хамон и Пан кон Томате</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> хамон, багет, спелый помидор, чеснок, оливковое масло.<br>
+                <strong>Рецепт:</strong> Хлеб подсушить, натереть чесноком и помидором, сбрызнуть маслом. Сверху выложить тонкие ломтики хамона.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>5. Чурросы с шоколадом</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> мука, вода, соль, сахар, масло для жарки, тёмный шоколад.<br>
+                <strong>Рецепт:</strong> Заварить тесто, отсадить через звёздчатую насадку и обжарить в масле. Обвалять в сахаре, подавать с горячим шоколадом.
+            </div>
+        </div>
+    </div>
+
+    <!-- РЕЦЕПТЫ ФРАНЦИИ -->
+    <div class="recipes themed-france" id="recipes-france">
+        <div class="recipe-card">
+            <h4>1. Кок-о-вен (Coq au Vin)</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> курица, красное вино, бекон, грибы, лук, чеснок, тимьян.<br>
+                <strong>Рецепт:</strong> Обжарить курицу с беконом, добавить овощи, залить вином. Тушить 1,5 часа на медленном огне до нежности.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>2. Рататуй</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> баклажаны, кабачки, помидоры, перец, лук, чеснок, прованские травы.<br>
+                <strong>Рецепт:</strong> Овощи нарезать кружками, выложить по кругу на томатную основу. Сбрызнуть маслом и запекать 40 мин при 180°C.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>3. Луковый суп (Soupe à l'oignon)</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> лук, говяжий бульон, багет, сыр грюйер, сливочное масло, белое вино.<br>
+                <strong>Рецепт:</strong> Лук медленно карамелизовать 40 мин, влить вино и бульон. Разлить по горшочкам, сверху гренка с сыром — запечь до расплавления.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>4. Киш Лорен (Quiche Lorraine)</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> песочное тесто, бекон, яйца, сливки, сыр, мускатный орех.<br>
+                <strong>Рецепт:</strong> Тесто выложить в форму, поверх — обжаренный бекон. Залить смесью яиц со сливками и сыром. Запекать 35 мин при 180°C.
+            </div>
+        </div>
+        <div class="recipe-card">
+            <h4>5. Крем-брюле</h4>
+            <div class="recipe-detail">
+                <strong>Ингредиенты:</strong> сливки, желтки, сахар, ваниль.<br>
+                <strong>Рецепт:</strong> Взбить желтки с сахаром, влить горячие сливки с ванилью. Запекать на водяной бане 40 мин. Охладить, посыпать сахаром и карамелизовать горелкой.
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ========== ФУТЕР ========== -->
+<footer>
+    <p>⚽ GASTRO-BAR 4:20 ⚽</p>
+    <p style="font-size:0.9rem; color:var(--beige); margin-top:10px;">
+        Тайное место для тех, кто живёт футболом.<br>
+        Открыто только в дни великих матчей.
+    </p>
+    <p style="font-size:0.8rem; color:var(--gold); margin-top:15px;">
+        «Пароль знают лишь свои» — ЧМ 2026
+    </p>
+</footer>
+
+</div><!-- /.container -->
+
+<script>
+    function showRecipes(team, btn) {
+        // Скрываем оба блока рецептов
+        document.getElementById('recipes-spain').classList.remove('show');
+        document.getElementById('recipes-france').classList.remove('show');
+
+        // Снимаем активность со всех кнопок
+        document.querySelectorAll('.team-btn').forEach(function(b) {
+            b.classList.remove('active');
+        });
+
+        // Показываем выбранный блок
+        document.getElementById('recipes-' + team).classList.add('show');
+        btn.classList.add('active');
+
+        // Плавная прокрутка к рецептам
+        setTimeout(function() {
+            document.getElementById('recipes-' + team).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 100);
+    }
+</script>
+
+</body>
+</html>
